@@ -1,6 +1,8 @@
 package com.maharram.uberclone.dtos;
 
 import com.maharram.uberclone.validation.ValidPassword;
+import io.micrometer.core.instrument.config.validate.Validated;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -20,4 +22,8 @@ public class UserDTO {
             String lastname,
             String email
     ){};
+    public record AuthRequest(
+            @Email String email,
+            @ValidPassword String password
+    ){}
 }

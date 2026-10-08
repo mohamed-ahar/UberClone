@@ -2,25 +2,29 @@ package com.maharram.uberclone.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@Table(name="users")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String firstName;
-    private String lastName;
-    @Column(unique = true)
-    private String email;
-    private String password;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    private String role;
+  private String firstName;
+  private String lastName;
+
+  @Column(unique = true)
+  private String email;
+
+  private String password;
+
+  private String role;
 }
