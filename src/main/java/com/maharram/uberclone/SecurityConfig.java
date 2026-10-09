@@ -4,6 +4,7 @@ import io.jsonwebtoken.security.JwkThumbprint;
 import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -43,10 +44,13 @@ public class SecurityConfig {
             auth ->
                 auth.requestMatchers("/user/register", "/user/login", "/")
                     .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/drivers", "/api/riders")
+                    .permitAll()
                     .requestMatchers("/user/profile/**")
                     .hasAuthority("USER_ROLE")
                     .requestMatchers("/user/admin/**")
-                    .hasAuthority("ADMIN_ROLE"))
+                    .hasAuthority("ADMIN_ROLE")
+                    .anyRequest().authenticated())
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authenticationProvider())

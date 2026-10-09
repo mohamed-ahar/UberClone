@@ -35,13 +35,12 @@ public class Auth {
 
   @PostMapping("/login")
   public String AuthenticateAndGetToken(@RequestBody UserDTO.AuthRequest authRequest) {
-    System.out.println(authRequest.password());
     Authentication authentication =
         authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(authRequest.email(), authRequest.password()));
-    System.out.println(authentication.isAuthenticated());
+            new UsernamePasswordAuthenticationToken(
+                authRequest.username(), authRequest.password()));
     if (authentication.isAuthenticated()) {
-      return jwtService.generateToken(authRequest.email());
+      return jwtService.generateToken(authRequest.username());
     }
     throw new UsernameNotFoundException("UserEmail or Password not Found!");
   }
